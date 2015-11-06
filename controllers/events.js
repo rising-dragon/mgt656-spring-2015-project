@@ -22,11 +22,20 @@ var allowedDateInfo = {
     10: 'November',
     11: 'December'
   },
+  
+  days: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 
+    12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
+    22, 23, 24, 25, 26, 27, 28, 29, 30, 31],
+    
   minutes: [0, 30],
+  
   hours: [
     0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
     12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23
-  ]
+  ],
+  
+  years: [2015, 2016]
+
 };
 
 /**
@@ -45,9 +54,19 @@ function listEvents(request, response) {
  * Controller that renders a page for creating new events.
  */
 function newEvent(request, response){
-  var contextData = {};
+  var contextData = {allowedDateInfo: allowedDateInfo};
   response.render('create-event.html', contextData);
 }
+
+function isRangedInt(number, name, min, max, errors){
+  if(validator.isInt(number)){
+    var numberAsInt = parseInt(number);
+    if(number >= min && number <= max){
+      return;
+    }
+  }
+  errors.push(name + " should be an int in the range " + min + " to " + max);
+} 
 
 /**
  * Controller to which new events are submitted.
@@ -55,15 +74,30 @@ function newEvent(request, response){
  * our global list of events.
  */
 function saveEvent(request, response){
-  var contextData = {errors: []};
+  var contextData = {errors: [], allowedDateInfo: allowedDateInfo};
 
   if (validator.isLength(request.body.title, 5, 50) === false) {
     contextData.errors.push('Your title should be between 5 and 100 letters.');
   }
-
-
+    if (validator.isLength(request.body.location, 5, 50) === false) {
+    contextData.errors.push('Your location should be between 5 and 100 letters.');
+  }
+  
+  isRangedInt(request.body.year, 'year', allowedDateInfo.years[0], allowedDateInfo.years[allowedDateInfo.years.length-1], contextData.errors);
+  isRangedInt(request.body.month, 'month', 0, 11, contextData.errors);
+  isRangedInt(request.body.day, 'day', allowedDateInfo.days[0], allowedDateInfo.days[allowedDateInfo.days.length-1], contextData.errors);
+  isRangedInt(request.body.hour, 'hour', allowedDateInfo.hours[0], allowedDateInfo.hours[allowedDateInfo.hours.length-1], contextData.errors);
+  isRangedInt(request.body.minute, 'minute', allowedDateInfo.minutes[0], allowedDateInfo.minutes[allowedDateInfo.minutes.length-1], contextData.errors);
+  
+  if(!validator.isURL(request.body.image) || (request.body.image.match(/\.(gif|png)$/i) === null)){
+    contextData.errors.push('Your image should be a png or gif online')
+  }
+  
+  
+  
   if (contextData.errors.length === 0) {
     var newEvent = {
+      id: events.getMaxId() + 1,
       title: request.body.title,
       location: request.body.location,
       image: request.body.image,
@@ -71,7 +105,7 @@ function saveEvent(request, response){
       attending: []
     };
     events.all.push(newEvent);
-    response.redirect('/events');
+    response.redirect(302,'/events/' + newEvent.id);
   }else{
     response.render('create-event.html', contextData);
   }
