@@ -10,11 +10,7 @@ function index (request, response) {
   var contextData = {
     'title':'MGT 656',
     'tagline': 'You are doomed (just kidding)',
-<<<<<<< HEAD
-    'events': events.all
-=======
     'events': []
->>>>>>> 70035b593407cefbf8e46b8db014e2fcc925f6ed
   };
   for(var i = 0; i < events.all.length; i++){
     var event = events.all[i];
