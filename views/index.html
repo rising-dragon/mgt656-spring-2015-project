@@ -10,15 +10,14 @@
   <p>
     Welcome to {{ title }}. {{tagline}}
   </p>
+  
+  <img id="logo" src="/img/RD Logo.png" width=30% height=30% >
 
   <p> Here is our list of events</p>
   <div style="border: 2px solid black">
     {% include "fragments/events-list.html" %}
     </div>
   
-
-  <img id="logo" src="/img/Tuxedo Penguin.png" width=30% height=30% >
-
   <p>
     Check out the <a href="/about">About us</a> page
     as well as the <a href="/events">Events</a> page.
@@ -26,4 +25,7 @@
   <p>
     <a id="new" href="/events/new">Create a new event</a>
   </p>
+  
+  <img id="background" src="/img/Tuxedo Penguin.png" width=30% height=30% >
+  
 {% endblock %}
