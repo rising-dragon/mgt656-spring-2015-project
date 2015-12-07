@@ -1,31 +1,131 @@
 {% extends "layout.html" %}
+ {% block header %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
 
-{% block header %}
-  <header>
-    <h1>{{ title }} FTW</h1>
-  </header>
-{% endblock %}
+    <title>Jumbotron Template for Bootstrap</title>
 
-{% block mainContent %}
-  <p>
-    Welcome to {{ title }}. {{tagline}}
-  </p>
-  
-  <img id="logo" src="/img/RD Logo.png" width=30% height=30% >
+    <!-- Bootstrap core CSS -->
+    <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
 
-  <p> Here is our list of events</p>
-  <div style="border: 2px solid black">
-    {% include "fragments/events-list.html" %}
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="jumbotron.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+                {% endblock %}
+                
+  {% block mainContent %}              
+  <body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+         </div>
+          <!--<a class="navbar-brand">Rising Dragon Events</a>-->
+        </div>
+        <div class="row">
+          
+       <div class="col-md-4">
+        <a class="navbar-brand">Rising Dragon Events</a></div>
+        <div class="col-md-8">
+          <div id="navbar" class="navbar-collapse collapse">
+          <form class="navbar-form navbar-right">
+            <div class="form-group">
+              <input type="text" placeholder="Email" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-success">Alert me with new events</button>
+          </form>
+        </div><!--/.navbar-collapse -->
+      </div>
+      </div>
+      </div>
+    </nav>
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <img id="logo" src="/img/Tuxedo Penguin.png" width=100% height=100% class="img-rounded" >
+          </div>
+          <div class="col-md-8">
+        <h1>Welcome!</h1>
+        <p> Welcome to Rising Dragon Events! Are you organizing a conference and need to get the word out? Or are you just planning a party and want to invite all your friends? Rising Dragon can help with that.
+     Publicize event details, let people register so you know who to expect! </p>
+        <p><a class="btn btn-primary btn-lg" id="new" href="/events/new" role="button">Create an event now! &raquo;</a></p>
+        </div>
+      </div>
     </div>
-  
-  <p>
-    Check out the <a href="/about">About us</a> page
-    as well as the <a href="/events">Events</a> page.
-  </p>
-  <p>
-    <a id="new" href="/events/new">Create a new event</a>
-  </p>
-  
-  <img id="background" src="/img/Tuxedo Penguin.png" width=30% height=30% >
-  
+
+    <div class="container">
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="col-md-4">
+          <h2>Events Near You</h2>
+          <p><div>
+    {% include "fragments/events-list.html" %}
+  </div></p>
+          <p><a class="btn btn-default" href="/events" role="button">View details &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+          <h2>About Us</h2>
+          <p>We are four fabulous ladies at Yale School of Management who have a thing for animals in tuxedos. With that kind of class, how can you not want to advertise your events with us?</p>
+          <p><a class="btn btn-default" href="/about" role="button">View details &raquo;</a></p>
+       </div>
+        <div class="col-md-4">
+          <h2>Create An Event</h2>
+          <p>Have an upcoming event? Rising Dragon Events is right for:</p>
+          <ul>
+            <li>Birthday</li>
+            <li>Conference</li>
+            <li>Wedding</li>
+            <li>Bar Mitzvah</li>
+            <li>And more!</li>
+          </ul>
+          <p><a class="btn btn-default" href="/events/new" role="button">View details &raquo;</a></p>
+        </div>
+      </div>
+
+      <hr>
 {% endblock %}
+      <footer>
+        <p>&copy; 2015 Rising Dragon Events, Inc.</p>
+      </footer>
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="../../dist/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>
